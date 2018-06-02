@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+// Axios
+import Axios from 'axios'
+
 
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'

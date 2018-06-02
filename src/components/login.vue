@@ -1,15 +1,39 @@
 <template>
-<div class="wrap container-fluid d-flex align-items-center justify-content-center">
+<div class=" login wrap container-fluid d-flex align-items-center justify-content-center">
     <div class="loginDisplay ">
         <h1>{{this.title}}</h1>
         <p>{{this.message}}</p>
     </div>
-    <form class="container" action="https://www.google.com">
+    <form class="container" action="">
         <label  for="email" class="col-sm-12 ">E-mail</label>
-        <input  required placeholder="me@example.com" name="email" id="email" class="col-sm-10 offset-sm-1" type="email">
-        <label for="password" class="col-sm-12 ">Password <i @click="showPassword" v-bind:class="[show ? activeClass : active, errorClass]" class="fa"></i></label> 
+
+        <input  
+        required
+        placeholder="me@example.com" 
+        name="email" 
+        id="email" 
+        class="form-control col-sm-10 offset-sm-1" 
+        type="type" 
+        v-model="email"
+        @blur="verifyEmail"
+        @focus="resetErrors"
+        >
+
+        <p>{{emailError}}</p>
+        <label for="password" class="col-sm-12 ">Password <i @click="showPassword" v-bind:class="[show ? show : active, errorClass]" class="fa"></i></label> 
          
-        <input required value="qwerty123%%" name="password" id="password" class="col-sm-10 offset-sm-1" type="password">
+        <input 
+        required
+        placeholder="qwerty123%" 
+        name="password" 
+        id="password" 
+        class="form-control col-sm-10 offset-sm-1" 
+        :type="type" 
+        v-model="password"
+        @blur="verifyPassword"
+        >
+
+        <p>{{passwordError}}</p>
     
         <button class="logInButton">Log in</button>
     
@@ -23,26 +47,56 @@ export default {
   props: {
     
   },
+  computed:{
+      
+  },
   methods:{
       showPassword(){
               if(this.show === false){
-                  this.show = true;
-                  document.getElementById('password').setAttribute('type', 'text');
+                this.show = true;
+                this.type = "text"
+
               }else{
-                  this.show = false;
-                  document.getElementById('password').setAttribute('type', 'password');
+                this.show = false;
+                this.type = "password"
+
               }
 
+      },
+      verifyEmail(){
+            var regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var result =  regEx.test(String(this.email).toLowerCase());
+            console.log(result);
+            result ?  this.emailError =  "" : this.emailError ="Please enter a valid E-mail";
+
+
+      },
+      verifyPassword(){
+            this.password === "" ?  this.passwordError =  "Please enter your password" : this.passwordError ="";
+
+
+      },
+      resetErrors(){
+          this.passwordError = "";
+          this.emailError = "";
       }
   },
   data(){
       return{
+          type: "password",
           show: false,
           active: "fa-eye-slash",
           errorClass: "fa-eye",
           title: "Log In",
-          message: "By logging in you agree to the ridiculously long terms that you didnt mother to read."
-      }
+          message: "By logging in you agree to the ridiculously long terms that you didnt mother to read.",
+          email: "",
+          password: "",
+          emailError: "",
+          passwordError: "",
+
+
+          
+          }
   }
 }
 
@@ -103,6 +157,9 @@ export default {
                 color: #fff;
                 margin:0;
                 padding: 0;
+                }
+                p{
+                    color: red;
                 }
     }
 

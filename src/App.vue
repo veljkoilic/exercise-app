@@ -1,21 +1,24 @@
 <template>
   <div id="app">
-    <router-link to="/">HOME</router-link>
-    <router-link to="/hello">HELLO</router-link>
+    <router-link to="/login">Log in </router-link>
+    <router-link to="/notifications">Notifications</router-link>
     <router-view></router-view>
-        
   </div>
+  
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import login from './components/login.vue'
+import notifications from './components/notifications.vue'
+
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
-    login
+    login,
+    notifications
   }
 }
 </script>
@@ -28,9 +31,24 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  display: flex;
   widows: 100vw;
   height: 100vh;
   background: #DFE0E3;
+  a{
+    
+    background: #f1f1f1;
+    padding: 10px;
+    margin: 12px;
+    border-radius: 5px;
+    &:hover{
+      background: darken($color: #f1f1f1, $amount: 10);
+      text-decoration: none;
+    }
+  }
+  .login{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 </style>

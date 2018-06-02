@@ -1,21 +1,11 @@
 import VueRouter from 'vue-router';
 
-let routes = [
-
-    {
-        path: '#/',
-        component: require('./src/components/login.vue')
-
-    },
-    {
-        path: '#/hello',
-        component: require('./src/components/HelloWorld.vue')
-
-    }
-
-];
-
+import notifications from './src/components/notifications.vue';
+import login from './src/components/login.vue';
 
 export default new VueRouter({
-    routes
+    routes: [
+      { path: '/login', component: login },
+      { path: '/notifications', component: notifications }
+    ]
 });
