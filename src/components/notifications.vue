@@ -2,10 +2,10 @@
 <div class="notifications container-fluid">
 <button><i v-on:click="showNotifications" class="fas fa-bell"></i></button>
 <div class="notificationBox col-sm-6 offset-sm-3"  v-if="show" >
-  <div v-bind:key="notification" v-for="notification in notifications"  class="singleNotification" :class="{ seen: notification.seen}">
+  <div v-bind:key="notification" v-for="(notification, index) in notifications"  class="singleNotification" :class="{ seen: notification.seen}">
     <div class="icon"><i class="fas" :class="notification.icon"></i></div>
     <div class="message"><h3 v-text="notification.message"></h3></div>
-    <div class="time"><p>{{notification.time}}</p> </div>
+    <div class="time"><p>{{FormatedDate(index)}}</p> </div>
   </div>
 
 
@@ -20,12 +20,13 @@ export default {
   name: 'notifications',
   props: {
     
+    
   },
   computed:{
 
   },
   mounted(){
-    axios.get('https://api.myjson.com/bins/dsljq').then(response => this.notifications = response.data);
+    axios.get('https://api.myjson.com/bins/1ega42').then(response => this.notifications = response.data);
   },
   data(){
     return{
@@ -55,28 +56,21 @@ export default {
     }
   },
   methods:{
-      FormatedDate(notification){
-        console.log(formattedTime);
-      var date = new Date(notification.time*1000);
-      // Hours part from the timestamp
-      var hours = date.getHours();
-      // Minutes part from the timestamp
-      var minutes = "0" + date.getMinutes();
-      // Seconds part from the timestamp
-      var seconds = "0" + date.getSeconds();
-
-      // Will display time in 10:30:23 format
-      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-      var index = this.notifications.indexOf(notification);
-
-      this.notifications[index].time = formattedTime;
+      FormatedDate(index){
+      return new Date(this.notifications[index].time * 1e3).toISOString().slice(-13, -5);
     },
+    
+    
     showNotifications(){
+        this.notifications.sort((a,b)=>{return b.time - a.time})
         this.show ? this.show = false : this.show = true;
-        for(var i = 0; i < this.notifications.length; i+=1){
+        setTimeout(() => {
+          for(var i = 0; i < this.notifications.length; i+=1){
           this.notifications[i].seen = true;
-          console.log(this.notifications[i].seen);
         }
+          
+        }, 3000);
+
     }
 
   }
@@ -97,13 +91,13 @@ export default {
   display: none;  // Safari and Chrome
   }
       .seen{
-      border: 2px solid red;
+      opacity: 0.5;
     }
 
   .singleNotification{
     margin: 8px 0;
-    background: #4F5D75;
-    height: 100px;
+    background: #4f5d75;
+    min-height: 100px;
     display: flex;
     flex-direction: flex-start;
     justify-content: space-between;
@@ -118,7 +112,7 @@ export default {
       }
     }
     .icon{
-        margin-left: 10px;
+        margin-left: 50px;
 
         i{
           font-size: 40px;
