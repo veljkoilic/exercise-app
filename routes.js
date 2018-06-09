@@ -1,11 +1,15 @@
 import VueRouter from 'vue-router';
 
-import notifications from './src/components/notifications.vue';
-import login from './src/components/login.vue';
+import welcome from './src/components/views/welcome.vue';
+import createWorkout from './src/components/views/createWorkout.vue';
+import selectWorkout from './src/components/views/selectWorkout.vue';
 
 export default new VueRouter({
     routes: [
-      { path: '/login', component: login },
-      { path: '/notifications', component: notifications }
+      { path: '/', component: welcome },
+      { path: '/create-workout', component: createWorkout },
+      { path: '/select-workout', component: selectWorkout }
+
+
     ]
 });
