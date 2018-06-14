@@ -1,6 +1,6 @@
 <template>
   <div class="selectWorkout">
-      <h1>SELCECT WORKOUT</h1>
+      <h1></h1>
   </div>
 </template>
 
@@ -9,7 +9,20 @@ export default {
   name: 'selectWorkout',
   props: {
     
+  },
+    data(){
+    return {
+        allWorkouts: []
+    }
+},
+  mounted(){
+    window.EventBus.$on('workoutListCreated',(workoutList) => {
+        this.allWorkouts = workoutList;
+        console.log(allWorkouts);
+
+    });
   }
+    
 }
 </script>
 

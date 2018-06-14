@@ -8,10 +8,10 @@
           <button class="fas fa-plus-circle" @click="validateExerciseAndAdd()"></button>
       </div>
     <ul>
-        <li v-bind:key="one-workout" v-for="workout in workouts"> <span class="eName">{{workout.name}} -  </span> <span class="eSets"> {{workout.sets}} sets </span> <span class="eReps"> {{workout.reps}} reps </span> </li>
+        <li v-bind:key="workout.name" v-for="workout in workouts"> <span class="eName">{{workout.name}} -  </span> <span class="eSets"> {{workout.sets}} sets </span> <span class="eReps"> {{workout.reps}} reps </span> </li>
 
     </ul>
-    <button class="createButton">Create Workout!</button>
+    <button class="createButton" @click="createWorkout()">Create Workout!</button>
   </div>
 </template>
 
@@ -47,6 +47,9 @@ export default {
             this.newSets = 0    
             this.newReps = 0
           }
+      },
+      createWorkout(){
+          window.EventBus.$emit('workoutCreated', this.workouts);
       }
       
   }

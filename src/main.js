@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 // Axios
-import axios from 'axios'
+// import axios from 'axios'
 
 
 // Bootstrap
@@ -26,6 +26,8 @@ import router from '../routes';
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false
+
+window.EventBus = new Vue();
 
 new Vue({
   render: h => h(App),

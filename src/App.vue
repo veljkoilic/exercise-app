@@ -3,7 +3,6 @@
     <navigation></navigation>
     <router-view></router-view>
   </div>
-  
 </template>
 
 <script>
@@ -12,10 +11,6 @@ import navigation from './components/navigation.vue'
 import createWorkout from './components/views/createWorkout.vue'
 import selectWorkout from './components/views/selectWorkout.vue'
 
-
-
-
-
 export default {
   name: 'app',
   components: {
@@ -23,7 +18,30 @@ export default {
     navigation,
     createWorkout,
     selectWorkout
+  },
+  data(){
+    return{
+      workoutList: []
+
+    }
+  },
+  mounted(){
+    window.EventBus.$on('workoutCreated',(workouts) => {
+      // Promenimo rutu
+      // Prikazemo novu komponentu
+      // Popunimo je podacima
+      this.workoutList.push(workouts);
+
+
+    });
+
+    window.EventBus.$on('pageChange',() => {
+      window.EventBus.$emit('workoutListCreated',this.workoutList)
+
+    });
+
   }
+
 }
 </script>
 

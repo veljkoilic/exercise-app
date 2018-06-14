@@ -4,7 +4,7 @@
       <ul class="container-fluid">
         <li class="col-sm-4"><router-link class="col-sm-12" to="/create-workout"><i class="fas fa-dumbbell"></i></router-link></li>
         <li class="col-sm-4"><router-link class="col-sm-12" to="/"><i class="far fa-circle"></i></router-link></li>
-        <li class="col-sm-4"><router-link class="col-sm-12" to="/select-workout"><i class="fas fa-angle-double-right"></i></router-link></li>
+        <li @click="sendEmitToSendEmitToSelectWorkout()" class="col-sm-4"><router-link class="col-sm-12" to="/select-workout"><i class="fas fa-angle-double-right"></i></router-link></li>
         
       </ul>
     </nav>
@@ -16,6 +16,12 @@ export default {
   name: 'navigation',
   props: {
     
+  },
+  methods:{
+    sendEmitToSendEmitToSelectWorkout(){
+      window.EventBus.$emit("pageChange");
+    }
+
   }
 }
 </script>
