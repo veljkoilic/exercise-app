@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation></navigation>
-    <router-view></router-view>
+    <router-view :workout-list='workoutList' :plan='plan'></router-view>
   </div>
 </template>
 
@@ -21,25 +21,24 @@ export default {
   },
   data(){
     return{
-      workoutList: []
+      workoutList: [
+        
+
+      ],
+      plan:[]
 
     }
-  },
+  },  
   mounted(){
-    window.EventBus.$on('workoutCreated',(workouts) => {
-      // Promenimo rutu
-      // Prikazemo novu komponentu
-      // Popunimo je podacima
-      this.workoutList.push(workouts);
+      window.EventBus.$on('workoutCreated', (workouts) => {
+          this.workoutList.push(workouts);
 
-
+        
+      });
+      window.EventBus.$on('workoutStarted', (plan) => {
+      this.plan = plan;
+      
     });
-
-    window.EventBus.$on('pageChange',() => {
-      window.EventBus.$emit('workoutListCreated',this.workoutList)
-
-    });
-
   }
 
 }
@@ -47,29 +46,29 @@ export default {
 
 <style  lang='scss'>
 body{
-    background: blue;
+    background: #CCC5B9;
 
-#app {
-  border-radius: 8px;
-  position: absolute;
-  left: 50%;
-  top: 15%;
-  transform: translate(-50%);
-  background: #1C1018;
-  margin-top: 0;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  width: 350px;
-  height: 650px;
-
-  .login{
+  #app {
+    border-radius: 8px;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%);
+    background: #1C1018;
+    margin-top: 0;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 350px;
+    height: 650px;
+
+    .login{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
-}
 }
 </style>

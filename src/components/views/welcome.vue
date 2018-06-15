@@ -1,5 +1,6 @@
 <template>
   <div class="welcome">
+    <h1>SELECT WORKOUT TO START</h1>
   </div>
 </template>
 
@@ -12,10 +13,17 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style   lang='scss'>
+<style  scoped lang='scss'>
 body{
-    background: #CCC5B9;
+  h1{
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    top:40%;
+    transform: translateY(-50%);
+
+  }
+
 }
 
 </style>

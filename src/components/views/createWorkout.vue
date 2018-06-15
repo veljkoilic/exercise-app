@@ -1,17 +1,24 @@
 <template>
   <div class="createWorkout">
-      <h1>CREATE WORKOUT</h1>
+      <h1>CREATE A WORKOUT</h1>
+
       <div class="creatorExercise">
           <input type="text" placeholder="Exercise name" v-model="newName">
           <input type="number" placeholder="Sets" v-model="newSets">
           <input type="number" placeholder="Reps" v-model="newReps">
           <button class="fas fa-plus-circle" @click="validateExerciseAndAdd()"></button>
       </div>
-    <ul>
-        <li v-bind:key="workout.name" v-for="workout in workouts"> <span class="eName">{{workout.name}} -  </span> <span class="eSets"> {{workout.sets}} sets </span> <span class="eReps"> {{workout.reps}} reps </span> </li>
 
+    <ul>
+        <li v-bind:key="workout.name"
+        v-for="workout in workouts">
+        <span class="eName">{{workout.name}} - </span>
+        <span class="eSets"> {{workout.sets}} sets </span>
+        <span class="eReps"> {{workout.reps}} reps </span> </li>
     </ul>
-    <button class="createButton" @click="createWorkout()">Create Workout!</button>
+
+    <button class="createButton" @click="workoutCreate()">Create Workout!</button>
+    
   </div>
 </template>
 
@@ -21,15 +28,15 @@ export default {
   data(){
       return{
           workouts:[
-              {name:"Push-ups", sets: 9, reps: 3},
-              {name:"Crunches", sets: 12, reps: 5},
-              {name:"Squats", sets: 2, reps: 1}
-          ],
+              {name:"Push-ups", sets: 9, reps: 3, active: false},
+              {name:"Crunches", sets: 12, reps: 5, active: false},
+              {name:"Squats", sets: 2, reps: 1, active: false}
+            ],
           newName: "",
-          newSets: 0    ,
-          newReps: 0
-      }
-  },
+          newSets: "",
+          newReps: ""
+        }
+    },
   methods:{
       validateExerciseAndAdd(){
           if(this.newName == "" || this.newSets == 0 || this.newReps == 0){
@@ -42,17 +49,18 @@ export default {
           }
           
           else{
-            this.workouts.push({name: this.newName, sets: this.newSets, reps: this.newReps});
+            this.workouts.push({name: this.newName, sets: parseInt(this.newSets), reps: parseInt(this.newReps), active: false});
             this.newName = ""
             this.newSets = 0    
             this.newReps = 0
           }
       },
-      createWorkout(){
-          window.EventBus.$emit('workoutCreated', this.workouts);
-      }
-      
-  }
+      workoutCreate(){
+            window.EventBus.$emit("workoutCreated", this.workouts);
+            this.workouts = [];
+            this.$router.push({path:"/select-workout"})
+        }    
+    }
 }
 </script>
 
