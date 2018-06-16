@@ -18,13 +18,73 @@ export default {
   props:{
     plan : Array
   },
+  data(){
+    return{
+      shoudlTakePause: false,
+      pauseCounter: 30
+    }
+  },
   methods:{
     clickToStart(){
-      // this.plan[0].active = true;
-      for (let i = 0; i < this.plan.length; i++) {
-        setInterval(function(){this.plan[i].active = true;}, 2500)
-        console.log('sklek');
-      }
+      //prikazi prvi
+      // Na svakih 2sekunde smanji workout.reps
+      // if workout.reps = 0, onda workout.sets -- a workout.reps = initialReps -> ovo definisati u varijabli.
+      // kada je workout.reps =  0, i++
+      var i = 0;
+      var originalReps = this.plan[i].reps;
+      
+      const WorkoutCountdown = setInterval(()=> {
+        if(i < this.plan.length){
+        this.plan[i].active = true;
+        if(this.plan[i].reps > 0){
+          this.plan[i].reps--;
+
+        }
+
+        if(this.plan[i].reps == 0){
+            if(this.plan[i].sets == 0){
+            this.plan[i].active = false;
+            this.shoudlTakePause = true;
+            setInterval(() => {
+              i++;
+              
+            }, 5000);            
+            
+          }
+          if(this.plan[i].sets > 0){
+          this.plan[i].sets --;
+          this.plan[i].reps = originalReps;
+          }
+
+        }
+        console.log(this.plan[i].reps)
+        }
+        //OVO ZAUSTAVLJA INTERVAL 
+        // else{
+        //   clearInterval(WorkoutCountdown);
+        // }
+      },300);
+
+
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+
+      // // this.plan[0].active = true;
+      // for (let i = 0; i < this.plan.length; i++) {
+      //   setInterval(()=>{this.plan[i].active = true;}, 2500)
+      //   console.log('sklek');
+      // }
 
 
     }
