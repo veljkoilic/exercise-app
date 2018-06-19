@@ -28,7 +28,7 @@ export default {
   data(){
       return{
           workouts:[
-              {name:"Push-ups", sets: 2, reps: 5, active: false},
+              {name:"Push-ups", sets: 3, reps: 5, active: false},
               {name:"Crunches", sets: 2, reps: 15, active: false},
               {name:"Squats", sets: 4, reps: 5, active: false}
             ],

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation></navigation>
-    <router-view :workout-list='workoutList' :plan='plan'></router-view>
+    <router-view :workout-list='workoutList' :workoutPlan='plan'></router-view>
   </div>
 </template>
 
@@ -21,10 +21,7 @@ export default {
   },
   data(){
     return{
-      workoutList: [
-        
-
-      ],
+      workoutList: [],
       plan:[]
 
     }

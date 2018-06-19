@@ -10,9 +10,9 @@ export default new VueRouter({
       { path: '/', component: welcome },
       { path: '/create-workout', component: createWorkout },
       { path: '/select-workout', component: selectWorkout },
-      { path: '/:parameter', component: doWorkout },
+      { path: '/:parameter', component: doWorkout},
       { path: '/:parameter', component: selectWorkout },
-
+      
 
 
 
